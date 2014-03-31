@@ -1,0 +1,10 @@
+#!/bin/bash
+###############################################################################
+#                 Small zenity wrapper for wget                               #
+#                    J.P.                                                     #
+#                                   Just 'cause        2014                   #
+###############################################################################
+first=$(zenity --title="Download a file with Wget" --text "Input the URL you wish to download" --entry) 
+last=$(zenity --title="Save as..." --text "Save as..." --entry) 
+dl=$(wget -O $last $first 2>&1 | sed -u 's/.*\ \([0-9]\+%\)\ \+\([0-9.]\+\ [KMB\/s]\+\)$/\1\n# Downloading \2/' | zenity --progress --title="Downloading File..." --pulsate --auto-kill --auto-close --text "Wgetting the file now...")
+exit &
